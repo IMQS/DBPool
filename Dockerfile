@@ -3,12 +3,20 @@
 FROM imqs/ubuntu-base AS BUILD
 
 RUN apt-get update && \
-	apt-get install -y build-essential pkg-config libevent-dev pandoc libtool m4 automake libssl-dev
+	apt-get install -y \
+	build-essential \
+	pkg-config \
+	libevent-dev \
+	pandoc \
+	libtool \
+	m4 \
+	automake \
+	libssl-dev
 
 COPY pgbouncer /pgbouncer
 WORKDIR /pgbouncer
 RUN ./autogen.sh && \
-	./configure && \
+	./configure --enable-evdns=no && \
 	make -j install
 
 FROM imqs/ubuntu-base
