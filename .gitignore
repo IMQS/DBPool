@@ -1,2 +1,8 @@
 pgbouncer.ini
 users.txt
+/.idea/DBPool.iml
+/.idea/vcs.xml
+/.idea/modules.xml
+/.idea/misc.xml
+/pgbouncer_orig.ini
+/users_orig.txt
