@@ -1,0 +1,8 @@
+# docker build -t imqs/dbpool:master .
+
+FROM imqs/dbpool:master
+
+RUN rm /deploy/users.txt
+RUN rm /deploy/pgbouncer.ini
+
+ENTRYPOINT ["/usr/local/bin/pgbouncer", "/config/pgbouncer.ini"]

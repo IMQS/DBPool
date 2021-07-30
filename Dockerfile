@@ -27,10 +27,15 @@ RUN apt-get update && \
 RUN groupadd -g 999 appuser && \
 	useradd -r -u 999 -g appuser appuser
 
+# Serves as the local working directory for pid and log files.
 RUN mkdir /deploy && chmod o+rwx /deploy
 COPY --from=BUILD /usr/local/bin/pgbouncer /usr/local/bin/pgbouncer
-COPY pgbouncer.ini users.txt /deploy/
+
+# We remove this, since we want to make DBPool configurable from outside of the container
+#COPY pgbouncer.ini users.txt /deploy/
+
+# The preferred location for configuration would be determined by the compose file
 
 USER appuser
 
-ENTRYPOINT ["/usr/local/bin/pgbouncer", "/deploy/pgbouncer.ini"]
+ENTRYPOINT ["/usr/local/bin/pgbouncer", "/config/pgbouncer.ini"]
