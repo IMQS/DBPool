@@ -31,10 +31,7 @@ RUN groupadd -g 999 appuser && \
 RUN mkdir /deploy && chmod o+rwx /deploy
 COPY --from=BUILD /usr/local/bin/pgbouncer /usr/local/bin/pgbouncer
 
-# We remove this, since we want to make DBPool configurable from outside of the container
-#COPY pgbouncer.ini users.txt /deploy/
-
-# The preferred location for configuration would be determined by the compose file
+COPY pgbouncer.ini users.txt /config/
 
 USER appuser
 

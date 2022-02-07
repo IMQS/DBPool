@@ -19,3 +19,5 @@ and then
 
 `SHOW DATABASES;`
 
+The "pgbouncer.ini" & "users.txt" can be found in the static-conf directory @ https://github.com/IMQS/static-conf
+These files need to exist in DBPool when building a new Docker image.
