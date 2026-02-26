@@ -40,8 +40,9 @@ COPY pgbouncer.ini users.txt /config/
 
 USER appuser
 
-ARG PGBOUNCER_USER="test_user"
+ENV DBPOOL_USER=test_user
+ENV	DBPOOL_PASSWORD=test_password
 
-HEALTHCHECK --interval=10s --timeout=5s --retries=3 CMD psql -p 6432 -U "$PGBOUNCER_USER" -d pgbouncer -c "SHOW USERS" >/dev/null || exit 1
+HEALTHCHECK --interval=10s --timeout=5s --retries=3 CMD PGPASSWORD=$DBPOOL_PASSWORD psql -h localhost -U $DBPOOL_USER -p 6432 -d pgbouncer -c "SHOW USERS" >/dev/null || exit 1
 
 ENTRYPOINT ["/usr/local/bin/pgbouncer", "/config/pgbouncer.ini"]
